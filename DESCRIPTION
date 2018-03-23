@@ -1,0 +1,28 @@
+Package: MoBAMA
+Type: Package
+Title: Runs a model on BAMA or Fc array data using rstan
+Version: 1.0
+Date: 2018-03-19
+Authors@R: person("William", "Young", email = "wyoung@fredhutch.org", role = c("aut", "cre"))
+Description: More about what it does (may be more than one line)
+License: What license is it under?
+Depends: R (>= 3.0.2), Rcpp (>= 0.12.14), methods
+Imports: rstan (>= 2.16.2), rstantools (>= 1.3.0)
+LinkingTo: StanHeaders (>= 2.16.0.1), rstan (>= 2.16.2), BH (>= 1.65.0.1), Rcpp (>= 0.12.14), RcppEigen (>= 0.3.3.3.1)
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.0.1
+Collate: 
+    'MoBAMA-package.R'
+    'MoBAMA.r'
+    'MoBAMAResult-methods.r'
+    'build_MoBAMA_summary.r'
+    'build_model_data.r'
+    'build_parameter_initialization.r'
+    'data_maps.r'
+    'date_filename.r'
+    'extractParams.r'
+    'utils.r'
+    'prepare_data.r'
+    'stanmodels.R'
+    'zzz.R'
