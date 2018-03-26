@@ -46,6 +46,8 @@ MoBAMA <- function(data,
         dataType = dataType,
         parameters = build_MoBAMA_summary(stanRes))
 
+    ## output <- add_parameter_summaries(output)
+
     class(output) <- "MoBAMAResult"
 
     return(output)

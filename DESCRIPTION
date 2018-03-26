@@ -24,5 +24,6 @@ Collate:
     'extractParams.r'
     'utils.r'
     'prepare_data.r'
+    'responses.r'
     'stanmodels.R'
     'zzz.R'
