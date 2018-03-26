@@ -1,5 +1,5 @@
 library(testthat)
-library(FcAnalysis)
+library(MoBAMA)
 if (file.exists("testthat")) {
   test_dir("testthat")
 }

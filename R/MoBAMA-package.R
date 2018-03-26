@@ -9,6 +9,7 @@
 #' @import stats
 #' @import Rcpp
 #' @import rstantools
+#' @import stringr
 #'
 #' @description
 #'

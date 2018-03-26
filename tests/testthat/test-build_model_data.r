@@ -1,3 +1,5 @@
+context("MoBAMA Model Data Building")
+
 source("simulate_data.r")
 
 ## Make data up
@@ -19,18 +21,19 @@ groupProbs <- c(0.93, 0.97)
 agProbs <- rbeta(nAg, 0.34, 0.16)
 reProbs <- rbeta(nRe, 1.04, 0.18)
 
-testdata <- simulate_data(nTp, nGrp, nSubj, nAg, nRe,
-                          agAlpha, agBeta, reAlpha, reBeta,
-                          sigmaAlpha, sigmaBeta, mu0,
-                          groupProbs, agProbs, reProbs)
+testdata <- simulate_fc_data(nTp, nGrp, nSubj, nAg, nRe,
+                             agAlpha, agBeta, reAlpha, reBeta,
+                             sigmaAlpha, sigmaBeta, mu0,
+                             groupProbs, agProbs, reProbs)
 
 simulated_data <- testdata$simData %>%
-    select(subjectId, group, re, ag, val, tp) %>%
-    tbl_df()
+    select(subjectId, group, re, ag, val, tp)
 
-## Test aspects of the list returned by build_model_data
+prepared_data <- prepare_data(simulated_data, "fc")
 
-model_data <- build_model_data(simulated_data, "")
+## ## Test aspects of the list returned by build_model_data
+
+model_data <- build_model_data(prepared_data, "fc")
 
 test_that("The build_model_data function counts things correctly", {
     expect_equal(nTp * nGrp * nSubj * nAg * nRe, model_data$N)

@@ -1,3 +1,6 @@
+library(dplyr)
+library(stringr)
+
 #' Simulate data for Fc modeling
 #'
 #' Simulates Fc array data according to given parameters
@@ -30,14 +33,14 @@
 #' the antigen and reagent response meanse and the ag/re group variances
 #'
 #' @export
-simulate_data <- function(nTp,
-                          nGrp, nSubj,
-                          nAg, nRe,
-                          agAlpha, agBeta,
-                          reAlpha, reBeta,
-                          sigmaAlpha, sigmaBeta,
-                          mu0, groupProbs,
-                          agProbs, reProbs) {
+simulate_fc_data <- function(nTp,
+                             nGrp, nSubj,
+                             nAg, nRe,
+                             agAlpha, agBeta,
+                             reAlpha, reBeta,
+                             sigmaAlpha, sigmaBeta,
+                             mu0, groupProbs,
+                             agProbs, reProbs) {
 
     N <- nTp * nGrp * nSubj * nAg * nRe
     muAg <- rgamma(nAg, agAlpha, agBeta)
@@ -52,10 +55,10 @@ simulate_data <- function(nTp,
         mutate(responseProb = groupProbs[group] * agProbs[ag] * reProbs[re],
                isResponse = rbinom(N, 1, prob = responseProb),
                val = rnorm(N) * sigma[ag + (re-1)*nAg] + mu0 + isResponse * (muAg[ag] + muRe[re]),
-               group = str_c("grp", str_pad(group, 3, "left", "0")),
-               subjectId = str_c(group, "_subj", str_pad(subjectId, 3, "left", "0")),
-               ag = str_c("ag", str_pad(ag, 3, "left", "0")),
-               re = str_c("re", str_pad(re, 3, "left", "0")))
+               group = paste0("grp", str_pad(group, 3, "left", "0")),
+               subjectId = paste0(group, "_subj", str_pad(subjectId, 3, "left", "0")),
+               ag = paste0("ag", str_pad(ag, 3, "left", "0")),
+               re = paste0("re", str_pad(re, 3, "left", "0")))
 
     list(simData = simData,
          agMeans = muAg,
