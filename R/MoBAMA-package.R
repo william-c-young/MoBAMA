@@ -10,6 +10,7 @@
 #' @import Rcpp
 #' @import rstantools
 #' @import stringr
+#' @import tidyr
 #'
 #' @description
 #'

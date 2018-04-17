@@ -21,13 +21,14 @@ response_call_evaluation <- function(result, subjectData, fdrs, cutoffs) {
     confData <- resp %>%
         left_join(subjectData, by = "subjectId") %>%
         select(ag, tp, responseProb, isResponder)
+    tps <- sort(unique(confData$tp))
 
-    fdrs_full <- c(sapply(cutoffs, efdr, resp = confData), fdrs)
-    cutoffs_full <- c(cutoffs, sapply(fdrs, fdr_cutoff, resp = confData))
+    fdrs_full <- c(sapply(cutoffs, efdr, resp = confData$responseProb), fdrs)
+    cutoffs_full <- c(cutoffs, sapply(fdrs, fdr_cutoff, resp = confData$responseProb))
         
     respSummary <- .confusion_matrices(confData, cutoffs_full) %>%
         mutate(ag = "-All-", timepoint = "-All-", fdr = fdrs_full)
-    for (filterTp in sort(unique(confData$tp))) {
+    for (filterTp in tps) {
         subData <- confData %>% dplyr::filter(tp == filterTp)
         respSummary <- respSummary %>%
             bind_rows(.confusion_matrices(subData, cutoffs_full) %>%
@@ -40,7 +41,7 @@ response_call_evaluation <- function(result, subjectData, fdrs, cutoffs) {
         respSummary <- respSummary %>%
             bind_rows(.confusion_matrices(subData, cutoffs_full) %>%
                       mutate(ag = filterAg, timepoint = "-All-", fdr = fdrs_full))
-        for (filterTp in sort(unique(confData$tp))) {
+        for (filterTp in tps) {
             subData2 <- subData %>% dplyr::filter(tp == filterTp)
             respSummary <- respSummary %>%
                 bind_rows(.confusion_matrices(subData2, cutoffs_full) %>%

@@ -7,7 +7,7 @@ add_parameter_summaries <- function(result) {
 
     agtbl <- result$data %>% select(ag, agId) %>% distinct()
     
-    result$mu0 <- extractParams(result, "mu_0") %>%
+    result$mu0 <- extractParams(result, "mu0") %>%
         mutate(tp = as.numeric(str_sub(var, 5, -2))) %>%
         rename(mu0 = mean) %>%
         select(tp, mu0, sd, q025, q975, n_eff, Rhat)

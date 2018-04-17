@@ -50,7 +50,7 @@ MoBAMA <- function(data,
         chains = nChains,
         parameters = build_MoBAMA_summary(stanRes))
 
-    ## output <- add_parameter_summaries(output)
+    output <- add_parameter_summaries(output)
 
     class(output) <- "MoBAMAResult"
 
