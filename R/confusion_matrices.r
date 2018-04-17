@@ -24,7 +24,6 @@
 ##'
 ##' @return a data.frame of confusion matrices for the provided
 ##' cutoff probabilities with columns cutoffProb, tp, fp, tn, and fn
-##' 
 .confusion_matrices <- function(respData, cutoffs) {
     confMat <- as.data.frame(t(sapply(cutoffs, .conf, respData)))
     names(confMat) <- c("cutoffProb", "tp", "fp", "tn", "fn")

@@ -4,13 +4,15 @@
 \alias{MoBAMA}
 \title{Runs a model on BAMA or Fc array data using stan}
 \usage{
-MoBAMA(data, dataType = "fc", stanParams = list(iter = 2000, noChains = 1),
+MoBAMA(data, dataType = "fc", nIter = 2000, nChains = 1,
   outFolder = NULL, outFile = date_filename("MoBAMA_stanfit.rds"), ...)
 }
 \arguments{
 \item{dataType}{type of data to be modeled ('bama' or 'fc')}
 
-\item{stanParams}{paramaters to pass to the stan command (number of cores, chains, iterations, etc.)}
+\item{nIter}{the number of iterations per chain for the stan sampling}
+
+\item{nChains}{the number of chains to run for the stan sampling}
 
 \item{outFolder}{the folder to save the stan results to (or NULL to not save)}
 

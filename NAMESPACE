@@ -2,6 +2,8 @@
 
 S3method(print,MoBAMAResult)
 export(MoBAMA)
+export(breadth_scores)
+export(response_call_evaluation)
 export(responses)
 export(summary.MoBAMAResult)
 import(Rcpp)
