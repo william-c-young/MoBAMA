@@ -17,44 +17,38 @@
 response_heatmap <- function(result,
                              responseThreshold = NULL,
                              groupby = "ag") {
-    resp <- responses(result)
+
     gbag <- groupby == "ag"
-    .pifelse <- function(test, yes, no) {
-        if (test) {
-            yes
-        }
-        else {
-            no
-        }
+    xord <- NULL
+    if (gbag) {
+        xord <- result$data %>%
+            select(ag, re, tp) %>%
+            distinct() %>%
+            arrange(ag, re, tp) %>%
+            mutate(order = 1:n(),
+                   label = ag,
+                   color = "black")
+    } else {
+        xord <- result$data %>%
+            select(ag, re, tp) %>%
+            distinct() %>%
+            arrange(re, ag, tp) %>%
+            mutate(order = 1:n(),
+                   label = re,
+                   color = "black")
     }
-    hmData <- resp %>%
-        mutate(name = .pifelse(gbag, str_c(ag, " ", re), str_c(re, " ", ag)),
-               label = .pifelse(gbag, ag, re),
-               nonlabel = .pifelse(gbag, re, ag)) %>%
-        arrange(group, subjectId, label, nonlabel)
-    combos <- hmData %>%
-        select(name, label) %>%
+    yord <- result$data %>%
+        select(subjectId, group) %>%
         distinct() %>%
-        arrange(label)
-    xsep <- cumsum(table(combos$label))
-    xsep2 <- floor((xsep + c(0, xsep[1:(length(xsep)-1)])) / 2)
-    xtext <- ifelse(gbag,
-                    "Antigen", "Fc Variable")
-    hmPlot <- NULL
-    if (is.null(responseThreshold)) {
-        hmPlot <- ggplot(hmData) +
-            geom_tile(aes(name, subjectId, fill=responseProb))
-    }
-    else {
-        ggplot(hmData) +
-            geom_tile(aes(name, subjectId,
-                          fill=responseProb > responseThreshold)) +
-            scale_fill_manual(values = c("darkred", "darkgreen"))
-    }
-    hmPlot +
-        geom_vline(xintercept = xsep+0.5, color="white") +
-        scale_x_discrete(xtext, limits=combos$name,
-                         breaks=combos$name[xsep2], labels=names(xsep2)) +
-        labs(y = "Subject by Group") +
-        theme(axis.text.x = element_text(angle = 45, hjust=.5, vjust=.5))
+        arrange(group, subjectId) %>%
+        mutate(order = 1:n(),
+               label = subjectId,
+               color = "black")
+
+    response_heatmap_custom(result,
+                            xord, yord,
+                            xtext = ifelse(gbag, "Antigen", "Fc Variable"),
+                            xlines = "white",
+                            ytext = "Subject by Group",
+                            ylines = NULL)
 }
