@@ -36,30 +36,35 @@ response_heatmap_custom <- function(result,
         left_join(xorderTable %>%
                   rename(xorder = order,
                          xlabel = label,
+                         xgroup = group,
                          xcolor = color),
                   by = c("ag", "re", "tp")) %>%
         left_join(yorderTable %>%
                   rename(yorder = order,
                          ylabel = label,
+                         ygroup = group,
                          ycolor = color),
                   by = "subjectId") %>%
         arrange(xorder, yorder)
 
     xax <- hmData %>%
-        select(xorder, xlabel, xcolor) %>%
+        select(xorder, xlabel, xgroup, xcolor) %>%
         distinct() %>%
         arrange(xorder)
     xsep <- cumsum(table(xax$xlabel))
 ##    xsep2 <- floor((xsep + c(0, xsep[1:(length(xsep)-1)])) / 2)
     xsep2 <- ceiling((xsep + c(0, xsep[1:(length(xsep)-1)])) / 2)
+    xgrpsep <- cumsum(table(xax$xgroup))
+
 
     yax <- hmData %>%
-        select(yorder, ylabel, ycolor) %>%
+        select(yorder, ylabel, ygroup, ycolor) %>%
         distinct() %>%
         arrange(yorder)
     ysep <- cumsum(table(yax$ylabel))
 ##    ysep2 <- floor((ysep + c(0, ysep[1:(length(ysep)-1)])) / 2)
     ysep2 <- ceiling((ysep + c(0, ysep[1:(length(ysep)-1)])) / 2)
+    ygrpsep <- cumsum(table(yax$ygroup))
 
     hmPlot <- NULL
     if (is.null(responseThreshold)) {
@@ -75,11 +80,11 @@ response_heatmap_custom <- function(result,
     
     if (!is.null(xlines)) {
         hmPlot <- hmPlot +
-            geom_vline(xintercept = xsep+0.5, color=xlines)
+            geom_vline(xintercept = xgrpsep+0.5, color=xlines)
     }
     if (!is.null(ylines)) {
         hmPlot <- hmPlot +
-            geom_hline(yintercept = ysep+0.5, color=ylines)
+            geom_hline(yintercept = ygrpsep+0.5, color=ylines)
     }
 
     hmPlot +
