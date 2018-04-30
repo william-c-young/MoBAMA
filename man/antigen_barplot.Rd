@@ -4,7 +4,8 @@
 \alias{antigen_barplot}
 \title{Barplot of antigen means
 TODO: add more options
-        colors (by antigen group, user-specified)
+      tp filtering
+      colors (by antigen group, user-specified)
       make the plot cleaner/nicer
       not hard code axis labels?}
 \usage{
@@ -22,7 +23,8 @@ a ggplot plot object
 \description{
 Barplot of antigen means
 TODO: add more options
-        colors (by antigen group, user-specified)
+      tp filtering
+      colors (by antigen group, user-specified)
       make the plot cleaner/nicer
       not hard code axis labels?
 }

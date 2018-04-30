@@ -45,7 +45,6 @@ response_heatmap <- function(result,
         arrange(group, subjectId) %>%
         mutate(order = 1:n(),
                label = subjectId,
-               group = group,
                color = "black")
 
     response_heatmap_custom(result,
