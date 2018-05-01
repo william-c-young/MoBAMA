@@ -1,14 +1,19 @@
-#' Barplot of Fc variable means
+#' Plot the reagent means as a barplot
+#'
+#' This function plots the reagent means from a model fit as a
+#'   barplot.
 #' TODO: add more options
-#'         colors (by Fc group, user-specified)
+#'       tp filtering
+#'       colors (by Fc group, user-specified)
 #'       make the plot cleaner/nicer
 #'       not hard code axis labels?
 #'
-#' @param result the MoBAMAResult object
-#' @param includeIntervals include sampling intervals for the probabilities.
-#' Defaults to false because of identifiability issues
+#' @param result The MoBAMAResult object.
+#' @param includeIntervals A boolean indicating whether to
+#'   include sampling intervals for the reagent means.
+#'   Defaults to \code{FALSE}.
 #'
-#' @return a ggplot plot object
+#' @return A ggplot barplot object.
 #'
 #' @export
 reagent_barplot <- function(result,

@@ -2,27 +2,26 @@
 % Please edit documentation in R/reagent_barplot.r
 \name{reagent_barplot}
 \alias{reagent_barplot}
-\title{Barplot of Fc variable means
-TODO: add more options
-        colors (by Fc group, user-specified)
-      make the plot cleaner/nicer
-      not hard code axis labels?}
+\title{Plot the reagent means as a barplot}
 \usage{
 reagent_barplot(result, includeIntervals = F)
 }
 \arguments{
-\item{result}{the MoBAMAResult object}
+\item{result}{The MoBAMAResult object.}
 
-\item{includeIntervals}{include sampling intervals for the probabilities.
-Defaults to false because of identifiability issues}
+\item{includeIntervals}{A boolean indicating whether to
+include sampling intervals for the reagent means.
+Defaults to \code{FALSE}.}
 }
 \value{
-a ggplot plot object
+A ggplot barplot object.
 }
 \description{
-Barplot of Fc variable means
+This function plots the reagent means from a model fit as a
+  barplot.
 TODO: add more options
-        colors (by Fc group, user-specified)
+      tp filtering
+      colors (by Fc group, user-specified)
       make the plot cleaner/nicer
       not hard code axis labels?
 }

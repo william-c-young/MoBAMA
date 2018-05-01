@@ -4,8 +4,14 @@
 \name{MoBAMA-package}
 \alias{MoBAMA-package}
 \alias{MoBAMA}
-\title{BAMA Data Modeling via RStan}
+\title{MoBAMA (Modeling of Binding Antibody Multiplex Assays)}
 \description{
-The \pkg{MoBAMA} package is used to model BAMA and Fc array data using a Bayesian
-grouped mixture model.
+This package fits a Bayesian grouped mixture model for BAMA and
+Fc array data using stan. The model identifies responses in the
+data.
+}
+\seealso{
+\itemize{
+    \item \code{\link{MoBAMA}}, for the main model fitting routine.
+  }
 }

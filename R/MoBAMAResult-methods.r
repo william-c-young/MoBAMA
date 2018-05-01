@@ -5,7 +5,9 @@
 ##'
 ##' @param x An object of class \code{MoBAMAResult}.
 ##' @param ... Optional arguments; currently unused.
+##' 
 ##' @export
+##' 
 ##' @examples
 ##' print(MB)
 print.MoBAMAResult <- function(x, ...) {
@@ -34,9 +36,11 @@ print.MoBAMAResult <- function(x, ...) {
 ##'
 ##' @param object An object of class \code{MoBAMAResult}.
 ##' @param ... Optional arguments; currently unused.
+##' 
 ##' @export
+##' 
 ##' @examples
-##' print(MB)
+##' summary(MB)
 summary.MoBAMAResult <- function(object, ...) {
     print(object, ...)
 }

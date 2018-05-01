@@ -1,3 +1,13 @@
+#' Build parameter initialization values for stan
+#'
+#' This function builds a list of parameter initialization
+#' values from the data to be passed to stan (from \code{build_model_data}).
+#'
+#' @param modelData The list of data to be passed to the stan sampler.
+#'
+#' @return A list containing parameter initializations for the model.
+#'
+#' @noRd
 build_parameter_initialization <- function(modelData) {
     list(ag_alpha = 1,
          ag_beta = 1,

@@ -1,8 +1,10 @@
 #' Adds parameter summary slots to a MoBAMAResult object
 #'
-#' @param result The MoBAMAResult object to fill with parameter summaries
+#' @param result The MoBAMAResult object to fill with parameter summaries.
 #'
-#' @return the filled MoBAMAResult object
+#' @return The filled MoBAMAResult object.
+#'
+#' @noRd
 add_parameter_summaries <- function(result) {
 
     agtbl <- result$data %>% select(ag, agId) %>% distinct()
@@ -39,12 +41,6 @@ add_parameter_summaries <- function(result) {
                                  "a_re", "b_re", "a_t", "b_t")) %>%
         rename(hyperparameter = var) %>%
         select(hyperparameter, mean, sd, q025, q975, n_eff, Rhat)
-
-extractParams(result, "omega_ag") %>%
-        mutate(agId = as.numeric(str_sub(var, 10, -2))) %>%
-        rename(omega_ag = mean) %>%
-        left_join(agtbl, by = "agId") %>%
-        select(ag, agId, omega_ag, sd, q025, q975, n_eff, Rhat)
 
     if ( result$dataType == "fc" ) {
         retbl <- result$data %>% select(re, reId) %>% distinct()

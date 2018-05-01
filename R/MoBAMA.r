@@ -1,26 +1,64 @@
-#' Runs a model on BAMA or Fc array data using stan
+#' Fit the MoBAMA model on BAMA or Fc array data
 #'
-#' Runs a chosen grouped mixture model on the provided data.
+#' This function fits the \code{MoBAMA} model.
 #' TODO: change params out to just list all the options?
 #'       saving the stanfit object or returning it
-#'       returning the summary in a better format
+#'       keeping original data
 #'
-#' @param bamaData the data to be modeled
-#' @param dataType type of data to be modeled ('bama' or 'fc')
-#' @param nIter the number of iterations per chain for the stan sampling
-#' @param nChains the number of chains to run for the stan sampling
-#' @param outFolder the folder to save the stan results to (or NULL to not save)
-#' @param outFile the filename to save the stan results to -
-#' defaults to '<yyyy-mm-dd>_MoBAMA_stanfit.rds'
-#' @param ... additional parameters to pass to the stan function
+#' @param bamaData The data to be modeled.
+#' @param dataType A string denoting the type of data
+#'   to be modeled ('bama' or 'fc'). Defaults to 'fc'.
+#' @param nChains The number of chains to run for the stan sampling.
+#'   Defaults to 1. If more than one chain is used, it is recommended
+#'   to call \code{options(mc.cores = parallel::detectCores())}
+#'   to allow for parallel processing of multiple chains.
+#' @param nIter The number of iterations per chain for the stan sampling.
+#'   Defaults to 2000.
+#' @param outFolder The folder to save the stan results to.
+#'   If disk space is an issue, you may set this to \code{NULL} to
+#'   not save the stanfit object. Defaults to \code{NULL}
+#' @param outFile The filename to save the stan results to.
+#'   Defaults to '<yyyy-mm-dd>_MoBAMA_stanfit.rds'.
+#' @param ... Additional parameters to pass to the stan sampling function.
+#'   See the rstan documentation for more information.
 #'
-#' @return a summary of the model results
+#' @return A \code{MoBAMAResult} is a list with the following components:
+#'
+#' \item{data}{The validated and prepared data used to fit
+#'   the \code{MoBAMA} model.}
+#' \item{dataType}{The type of data modeled. Either 'bama' or 'fc'.}
+#' \item{chains}{The number of chains run for the stan sampling.}
+#' \item{iter}{The number of iterations per chain for the stan sampling.}
+#' \item{parameters}{A \code{data.frame} summarizing all parameters sampled
+#'   for the model.}
+#' \item{mu0}{A \code{data.frame} summarizing the samples of the
+#'   baseline mean parameter, mu0.}
+#' \item{mu_ag}{A \code{data.frame} summarizing the samples of the
+#'   antigen offsets, mu_ag.}
+#' \item{mu_re}{A \code{data.frame} summarizing the samples of the
+#'   Fc variable offsets, mu_re. Only included if \code{dataType == 'fc'}.}
+#' \item{mu_ar}{A \code{data.frame} summarizing the samples of the
+#'   antigen/Fc variable offsets, mu_ar = mu_ag + mu_re.
+#'   Only included if \code{dataType == 'fc'}. This is included because mu_ar
+#'   has more sampling stability than mu_ag and mu_re.}
+#' \item{omega_t}{A \code{data.frame} summarizing the samples of the
+#'   prior response probabilities per timepoint, omega_t.}
+#' \item{omega_ag}{A \code{data.frame} summarizing the samples of the
+#'   prior response probabilities per antigen, omega_ag.}
+#' \item{omega_re}{A \code{data.frame} summarizing the samples of the
+#'   prior response probabilities per Fc variable, omega_re.
+#'   Only included if \code{dataType == 'fc'}.}
+#' \item{omega_grp}{A \code{data.frame} summarizing the samples of the
+#'   prior response probabilities per group, omega_grp.
+#'   Only included if \code{dataType == 'fc'}.}
+#' \item{hyperparameters}{A \code{data.frame} summarizing
+#'   the samples of the model hyperparameters.}
 #'
 #' @export
 MoBAMA <- function(data,
                    dataType = "fc",
-                   nIter = 2000,
                    nChains = 1,
+                   nIter = 2000,
                    outFolder = NULL,
                    outFile = date_filename("MoBAMA_stanfit.rds"),
                    ...) {
@@ -46,8 +84,8 @@ MoBAMA <- function(data,
     output <- list(
         data = data,
         dataType = dataType,
-        iter = nIter,
         chains = nChains,
+        iter = nIter,
         parameters = build_MoBAMA_summary(stanRes))
 
     output <- add_parameter_summaries(output)

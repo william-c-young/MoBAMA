@@ -2,26 +2,23 @@
 % Please edit documentation in R/antigen_barplot.r
 \name{antigen_barplot}
 \alias{antigen_barplot}
-\title{Barplot of antigen means
-TODO: add more options
-      tp filtering
-      colors (by antigen group, user-specified)
-      make the plot cleaner/nicer
-      not hard code axis labels?}
+\title{Plot the antigen means as a barplot}
 \usage{
 antigen_barplot(result, includeIntervals = F)
 }
 \arguments{
-\item{result}{the MoBAMAResult object}
+\item{result}{The MoBAMAResult object.}
 
-\item{includeIntervals}{include sampling intervals for the probabilities.
-Defaults to false because of identifiability issues}
+\item{includeIntervals}{A boolean indicating whether to
+include sampling intervals for the antigen means.
+Defaults to \code{FALSE}.}
 }
 \value{
-a ggplot plot object
+A ggplot barplot object.
 }
 \description{
-Barplot of antigen means
+This function plots the antigen means from a model fit as a
+  barplot.
 TODO: add more options
       tp filtering
       colors (by antigen group, user-specified)

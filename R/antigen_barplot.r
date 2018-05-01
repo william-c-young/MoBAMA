@@ -1,15 +1,19 @@
-#' Barplot of antigen means
+#' Plot the antigen means as a barplot
+#'
+#' This function plots the antigen means from a model fit as a
+#'   barplot.
 #' TODO: add more options
 #'       tp filtering
 #'       colors (by antigen group, user-specified)
 #'       make the plot cleaner/nicer
 #'       not hard code axis labels?
 #'
-#' @param result the MoBAMAResult object
-#' @param includeIntervals include sampling intervals for the probabilities.
-#' Defaults to false because of identifiability issues
+#' @param result The MoBAMAResult object.
+#' @param includeIntervals A boolean indicating whether to
+#'   include sampling intervals for the antigen means.
+#'   Defaults to \code{FALSE}.
 #'
-#' @return a ggplot plot object
+#' @return A ggplot barplot object.
 #'
 #' @export
 antigen_barplot <- function(result,

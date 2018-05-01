@@ -16,5 +16,5 @@ This function prints basic information about the model fit by a
 \code{\link{MoBAMA}} call.
 }
 \examples{
-print(MB)
+summary(MB)
 }

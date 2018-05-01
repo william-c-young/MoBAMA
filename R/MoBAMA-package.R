@@ -1,4 +1,8 @@
-#' BAMA Data Modeling via RStan
+#' MoBAMA (Modeling of Binding Antibody Multiplex Assays)
+#'
+#' This package fits a Bayesian grouped mixture model for BAMA and
+#' Fc array data using stan. The model identifies responses in the
+#' data.
 #'
 #' @docType package
 #' @name MoBAMA-package
@@ -11,10 +15,12 @@
 #' @import rstantools
 #' @import stringr
 #' @import tidyr
+#' @import ggplot2
 #'
-#' @description
+#' @seealso
+#'   \itemize{
+#'     \item \code{\link{MoBAMA}}, for the main model fitting routine.
+#'   }
 #'
-#' The \pkg{MoBAMA} package is used to model BAMA and Fc array data using a Bayesian
-#' grouped mixture model.
-#'
+#' 
 NULL

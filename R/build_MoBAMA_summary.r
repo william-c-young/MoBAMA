@@ -1,3 +1,11 @@
+#' Gets the parameter summary from a stanfit object
+#'
+#' @param modelFit The stanfit object to summarize.
+#'
+#' @return A \code{data.frame} containing summaries of all
+#'   sampled parameters in the model.
+#'
+#' @noRd
 build_MoBAMA_summary <- function(modelFit) {
     parSumm <- as.data.frame(rstan::summary(modelFit)$summary)
     parSumm$var <- rownames(parSumm)

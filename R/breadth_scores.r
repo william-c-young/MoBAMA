@@ -16,12 +16,12 @@
 #' Gets fab and FcR breadth scores per subject from
 #' a MoBAMAResult object
 #'
-#' @param result the MoBAMAResult object
-#' @param agClasses a named list of antigen classes, each item being
-#' a vector of antigen names used in the data to filter by before computing scores
+#' @param result The MoBAMAResult object.
+#' @param agClasses A named list of antigen classes, each item being
+#' a vector of antigen names used in the data to filter by before computing scores.
 #'
-#' @return a \code{data.frame} containing breadth scores for each subject,
-#' for all antigens as well as for each antigen class included in agClasses
+#' @return A \code{data.frame} containing breadth scores for each subject,
+#' for all antigens as well as for each antigen class included in agClasses.
 #'
 #' @export
 breadth_scores <- function(result,
