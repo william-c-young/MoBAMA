@@ -1,4 +1,7 @@
-#' Plots the response probabilities for all observations as a heatmap
+#' Plot the response probabilities for all observations as a heatmap
+#'
+#' This function plots the response probabilities from a model fit as a
+#'   heatmap.
 #' TODO: add more options
 #'         tp filtering?
 #'         sorting axes
@@ -6,12 +9,14 @@
 #'       make the plot cleaner/nicer
 #'       not hard code axis labels?
 #'
-#' @param result the MoBAMAResult object
-#' @param responseThreshold if not NULL, the threshold probability defining a response,
-#' resulting in a two-color heatmap rather than a continuous heatmap
-#' @param groupby the field (ag or re) to group by
+#' @param result The MoBAMAResult object.
+#' @param responseThreshold If not NULL, the threshold probability
+#'   defining a response, resulting in a two-color heatmap rather than
+#'   a continuous heatmap. Defaults to \code{NULL}.
+#' @param groupby The field ('ag' or 're') to group observations by.
+#'   Defaults to 'ag'.
 #'
-#' @return a ggplot plot object
+#' @return A ggplot heatmap.
 #'
 #' @export
 response_heatmap <- function(result,

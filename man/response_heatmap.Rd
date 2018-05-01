@@ -2,29 +2,26 @@
 % Please edit documentation in R/response_heatmap.r
 \name{response_heatmap}
 \alias{response_heatmap}
-\title{Plots the response probabilities for all observations as a heatmap
-TODO: add more options
-        tp filtering?
-        sorting axes
-        colors (by group, ag/re?, user-specified)
-      make the plot cleaner/nicer
-      not hard code axis labels?}
+\title{Plot the response probabilities for all observations as a heatmap}
 \usage{
 response_heatmap(result, responseThreshold = NULL, groupby = "ag")
 }
 \arguments{
-\item{result}{the MoBAMAResult object}
+\item{result}{The MoBAMAResult object.}
 
-\item{responseThreshold}{if not NULL, the threshold probability defining a response,
-resulting in a two-color heatmap rather than a continuous heatmap}
+\item{responseThreshold}{If not NULL, the threshold probability
+defining a response, resulting in a two-color heatmap rather than
+a continuous heatmap. Defaults to \code{NULL}.}
 
-\item{groupby}{the field (ag or re) to group by}
+\item{groupby}{The field ('ag' or 're') to group observations by.
+Defaults to 'ag'.}
 }
 \value{
-a ggplot plot object
+A ggplot heatmap.
 }
 \description{
-Plots the response probabilities for all observations as a heatmap
+This function plots the response probabilities from a model fit as a
+  heatmap.
 TODO: add more options
         tp filtering?
         sorting axes

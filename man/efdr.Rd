@@ -2,20 +2,21 @@
 % Please edit documentation in R/efdr.r
 \name{efdr}
 \alias{efdr}
-\title{Calculates the expected false-discovery rate for a given response cutoff}
+\title{Calculate the expected false-discovery rate for a given response cutoff}
 \usage{
 efdr(responseProbs, cutoff = 0.5)
 }
 \arguments{
-\item{responseProbs}{the response probabilities to use for calculating
-the expected false-discovery rate}
+\item{responseProbs}{The response probabilities to use for calculating
+the expected false-discovery rate.}
 
-\item{cutoff}{the probability cutoff probability for calling a response}
+\item{cutoff}{The probability cutoff probability for calling a response.}
 }
 \value{
-the expected false-discovery rate
+The expected false-discovery rate.
 }
 \description{
-Calculates the expected false-discovery rate for a set of response probabilities
-given the probability cutoff for calling a response
+This function calculates the expected false-discovery rate for a
+set of response probabilities given the probability cutoff for
+calling a response.
 }

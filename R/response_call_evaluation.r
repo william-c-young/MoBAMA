@@ -1,19 +1,19 @@
-#' Summarizes the responses from analyzing (particularly) BAMA data
+#' Summarize the responses from analyzing (particularly) BAMA data
 #' into a table of confusion matrices
 #'
-#' Calculates confusion matrices from a response dataset and truth
+#' This function calculates confusion matrices from a response dataset and truth
 #' based on subjects (each subject considered a responder or not) for a series
 #' of cutoff probabilities for calling responses and false-discovery rates.
 #' Subsets on individual antigen and timepoints as well as aggregates.
 #'
-#' @param result the MoBAMAResult object
-#' @param subjectData the data defining which subjects are believed to be responders.
-#' data.frame with columns subjectId and isResponder
-#' @param fdrs a vector of false-discovery rates
-#' @param cutoffs a vector of cutoff probabilities for calling responses
+#' @param result The MoBAMAResult object.
+#' @param subjectData A \code{data.frame} with columns subjectId and isResponder
+#'   defining which subjects are believed to be responders.
+#' @param fdrs A vector of target false-discovery rates.
+#' @param cutoffs A vector of cutoff probabilities for calling responses.
 #' 
-#' @return a table of confusion matrix entries with columns
-#' antigen, tp, fdr, cutoffProb, tp, fp, tn, fn
+#' @return A \code{data.frame} of confusion matrix entries with columns
+#'   ag, timepoint, fdr, cutoffProb, tp, fp, tn, fn
 #'
 #' @export
 response_call_evaluation <- function(result, subjectData, fdrs, cutoffs) {

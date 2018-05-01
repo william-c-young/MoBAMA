@@ -1,7 +1,19 @@
 #' @include utils.r
 #' @include data_maps.r
 
-#' Checks and prepares the data for use in MoBAMA modeling
+#' Check and prepares data for use in MoBAMA modeling
+#'
+#' This function validates and prepares data for use by stan in
+#' fitting the MoBAMA model.
+#'
+#' @param data The data to validate and prepare.
+#' @param dataType A string denoting the type of data
+#'   to be modeled ('bama' or 'fc').
+#'
+#' @return A validated and prepared \code{data.frame}, ready for
+#'   use in the MoBAMA model.
+#'
+#' @noRd
 prepare_data <- function(data, dataType) {
     errorStrings <- NULL
     ## Check dataType (must be bama or fc)

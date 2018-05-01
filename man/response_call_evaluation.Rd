@@ -2,27 +2,27 @@
 % Please edit documentation in R/response_call_evaluation.r
 \name{response_call_evaluation}
 \alias{response_call_evaluation}
-\title{Summarizes the responses from analyzing (particularly) BAMA data
+\title{Summarize the responses from analyzing (particularly) BAMA data
 into a table of confusion matrices}
 \usage{
 response_call_evaluation(result, subjectData, fdrs, cutoffs)
 }
 \arguments{
-\item{result}{the MoBAMAResult object}
+\item{result}{The MoBAMAResult object.}
 
-\item{subjectData}{the data defining which subjects are believed to be responders.
-data.frame with columns subjectId and isResponder}
+\item{subjectData}{A \code{data.frame} with columns subjectId and isResponder
+defining which subjects are believed to be responders.}
 
-\item{fdrs}{a vector of false-discovery rates}
+\item{fdrs}{A vector of target false-discovery rates.}
 
-\item{cutoffs}{a vector of cutoff probabilities for calling responses}
+\item{cutoffs}{A vector of cutoff probabilities for calling responses.}
 }
 \value{
-a table of confusion matrix entries with columns
-antigen, tp, fdr, cutoffProb, tp, fp, tn, fn
+A \code{data.frame} of confusion matrix entries with columns
+  ag, timepoint, fdr, cutoffProb, tp, fp, tn, fn
 }
 \description{
-Calculates confusion matrices from a response dataset and truth
+This function calculates confusion matrices from a response dataset and truth
 based on subjects (each subject considered a responder or not) for a series
 of cutoff probabilities for calling responses and false-discovery rates.
 Subsets on individual antigen and timepoints as well as aggregates.

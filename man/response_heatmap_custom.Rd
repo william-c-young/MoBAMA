@@ -2,43 +2,43 @@
 % Please edit documentation in R/response_heatmap_custom.r
 \name{response_heatmap_custom}
 \alias{response_heatmap_custom}
-\title{Plots the response probabilities for all observations as a heatmap
-with additional options for sorting and filtering both axes
-TODO: implement color}
+\title{Plot the response probabilities for all observations as a heatmap}
 \usage{
 response_heatmap_custom(result, xorderTable, yorderTable,
   responseThreshold = NULL, xtext = "Antigen/Fc Variable",
   xlines = "white", ytext = "SubjectId", ylines = NULL)
 }
 \arguments{
-\item{result}{the MoBAMAResult object}
+\item{result}{The MoBAMAResult object.}
 
-\item{xorderTable}{a table with all ag/re/tp combinations to include
-as well as ordering, labeling, and color information.
-Should have the following columns: ag, re, tp, order, label, color}
+\item{xorderTable}{A \code{data.frame} with all ag/re/tp combinations
+to include as well as ordering, labeling, and color information.
+Should have the following columns: ag, re, tp, order, label, color.}
 
-\item{yorderTable}{a table with all subjectIds to include
+\item{yorderTable}{A \code{data.frame} with all subjectIds to include
 as well as ordering, labeling, and color information.
 Should have the following columns: subjectId, order, label, color}
 
-\item{responseThreshold}{if not NULL, the threshold probability defining a response,
-resulting in a two-color heatmap rather than a continuous heatmap}
+\item{responseThreshold}{If not NULL, the threshold probability
+defining a response, resulting in a two-color heatmap rather than
+a continuous heatmap. Defaults to \code{NULL}}
 
-\item{xtext}{the label for the x-axis}
+\item{xtext}{The label for the x-axis. Defaults to 'Antigen/Fc Variable'.}
 
-\item{xlines}{the color for lines separating groups (by label) on the x-axis
-or NULL for no lines}
+\item{xlines}{A string defining the color for lines separating groups
+(by label) on the x-axis or \code{NULL} for no lines.
+Defaults to 'white'.}
 
-\item{ytext}{the label for the y-axis}
+\item{ytext}{The label for the y-axis. Defaults to 'SubjectId'.}
 
-\item{ylines}{the color for lines separating groups (by label) on the y-axis
-or NULL for no lines}
+\item{ylines}{A string defining the color for lines separating groups
+(by label) on the y-axis or \code{NULL} for no lines.
+Defaults to \code{NULL}}
 }
 \value{
-a ggplot plot object
+A ggplot heatmap.
 }
 \description{
-Plots the response probabilities for all observations as a heatmap
-with additional options for sorting and filtering both axes
-TODO: implement color
+This function plots the response probabilities from a model fit as a
+heatmap with additional options for sorting and filtering both axes.
 }

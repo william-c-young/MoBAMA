@@ -1,24 +1,28 @@
-#' Plots the response probabilities for all observations as a heatmap
-#' with additional options for sorting and filtering both axes
-#' TODO: implement color
+#' Plot the response probabilities for all observations as a heatmap
 #'
-#' @param result the MoBAMAResult object
-#' @param xorderTable a table with all ag/re/tp combinations to include
-#' as well as ordering, labeling, and color information.
-#' Should have the following columns: ag, re, tp, order, label, color
-#' @param yorderTable a table with all subjectIds to include
-#' as well as ordering, labeling, and color information.
-#' Should have the following columns: subjectId, order, label, color
-#' @param responseThreshold if not NULL, the threshold probability defining a response,
-#' resulting in a two-color heatmap rather than a continuous heatmap
-#' @param xtext the label for the x-axis
-#' @param xlines the color for lines separating groups (by label) on the x-axis
-#' or NULL for no lines
-#' @param ytext the label for the y-axis
-#' @param ylines the color for lines separating groups (by label) on the y-axis
-#' or NULL for no lines
+#' This function plots the response probabilities from a model fit as a
+#' heatmap with additional options for sorting and filtering both axes.
+#' 
+#' @param result The MoBAMAResult object.
+#' @param xorderTable A \code{data.frame} with all ag/re/tp combinations
+#'   to include as well as ordering, labeling, and color information.
+#'   Should have the following columns: ag, re, tp, order, label, color.
+#' @param yorderTable A \code{data.frame} with all subjectIds to include
+#'   as well as ordering, labeling, and color information.
+#'   Should have the following columns: subjectId, order, label, color
+#' @param responseThreshold If not NULL, the threshold probability
+#'   defining a response, resulting in a two-color heatmap rather than
+#'   a continuous heatmap. Defaults to \code{NULL}
+#' @param xtext The label for the x-axis. Defaults to 'Antigen/Fc Variable'.
+#' @param xlines A string defining the color for lines separating groups
+#'   (by label) on the x-axis or \code{NULL} for no lines.
+#'   Defaults to 'white'.
+#' @param ytext The label for the y-axis. Defaults to 'SubjectId'.
+#' @param ylines A string defining the color for lines separating groups
+#'   (by label) on the y-axis or \code{NULL} for no lines.
+#'   Defaults to \code{NULL}
 #'
-#' @return a ggplot plot object
+#' @return A ggplot heatmap.
 #'
 #' @export
 response_heatmap_custom <- function(result,

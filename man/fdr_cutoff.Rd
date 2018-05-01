@@ -2,21 +2,23 @@
 % Please edit documentation in R/fdr_cutoff.r
 \name{fdr_cutoff}
 \alias{fdr_cutoff}
-\title{Calculates the cutoff probability for a requested false-discovery rate}
+\title{Calculate the cutoff probability for a requested false-discovery rate}
 \usage{
 fdr_cutoff(responseProbs, fdr = 0.05)
 }
 \arguments{
-\item{responseProbs}{the response probabilities to use for calculating
-the minimum cutoff probability}
+\item{responseProbs}{The response probabilities to use for calculating
+the minimum cutoff probability.}
 
-\item{fdr}{the requested false-discovery rate}
+\item{fdr}{The requested false-discovery rate.}
 }
 \value{
-a probability cutoff for defining a response
+The maximum probability cutoff for defining a response that
+  will result in an expected false-discovery rate equal to or less
+  than that requested.
 }
 \description{
-Calculates the minimum cutoff probability for defining a response from
-a set of response probabilities such that the expected false-discovery
-rate is no greater than the requested FDR
+This function calculates the minimum cutoff probability for defining a
+response from a set of response probabilities such that the expected
+false-discovery rate is no greater than the requested FDR.
 }

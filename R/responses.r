@@ -1,9 +1,13 @@
-#' Gets the inferred response probabilities for observations from
-#' a MoBAMAResult object
+#' Get the inferred response probabilities for all observations from
+#' a model fit
 #'
-#' @param result the MoBAMAResult object to query
+#' This function adds response probabilities from a model fit
+#' to the modeled dataset.
 #'
-#' @return a \code{data.frame} containing the response probability information
+#' @param result The MoBAMAResult object to query.
+#'
+#' @return A \code{data.frame} containing the observation and response
+#'   probability information.
 #'
 #' @export
 responses <- function(result) {

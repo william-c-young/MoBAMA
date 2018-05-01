@@ -2,18 +2,19 @@
 % Please edit documentation in R/responses.r
 \name{responses}
 \alias{responses}
-\title{Gets the inferred response probabilities for observations from
-a MoBAMAResult object}
+\title{Get the inferred response probabilities for all observations from
+a model fit}
 \usage{
 responses(result)
 }
 \arguments{
-\item{result}{the MoBAMAResult object to query}
+\item{result}{The MoBAMAResult object to query.}
 }
 \value{
-a \code{data.frame} containing the response probability information
+A \code{data.frame} containing the observation and response
+  probability information.
 }
 \description{
-Gets the inferred response probabilities for observations from
-a MoBAMAResult object
+This function adds response probabilities from a model fit
+to the modeled dataset.
 }

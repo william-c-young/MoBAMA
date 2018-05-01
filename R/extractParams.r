@@ -1,13 +1,17 @@
-#' Extracts parameters from the model results
+#' Extract parameters from a MoBAMAResult object
 #'
-#' Extracts parameters from the model results that match
-#' the string provided
+#' This function extracts parameters from a MoBAMAResult object
+#' that match the string provided.
 #'
-#' @param object the MoBAMAResult object to query
-#' @param varStr the string which must match either the start or all of the parameter name
-#' @param fullname indicates whether the whole variable name must be matched, or just the start
+#' @param object The MoBAMAResult object to query.
+#' @param varStr The string which must match either the start or
+#'   all of the parameter name.
+#' @param fullname A boolean indicating whether the whole variable
+#'   name must be matched, or just the start. Defaults to \code{FALSE}.
 #'
-#' @return a \link{data.frame} containing the extracted parameter information
+#' @return A \code{data.frame} containing the extracted parameter information.
+#'
+#' @noRd
 extractParams <- function(object,
                           varStr,
                           fullname = FALSE) {
@@ -21,16 +25,18 @@ extractParams <- function(object,
               }
 }
 
-#' Extracts parameters from the model results
+#' Extract parameters from a MoBAMAResult object
 #'
-#' Extracts parameters from the model results that match
-#' the start and ending strings provided
+#' This function extracts parameters from the a MoBAMAResult object
+#' that match the start and ending strings provided.
 #'
-#' @param object the MoBAMAResult object to query
-#' @param startStr the string which must match the start of the parameter name
-#' @param endStr the string which must match the end of the parameter name
+#' @param object The MoBAMAResult object to query.
+#' @param startStr The string which must match the start of the parameter name.
+#' @param endStr The string which must match the end of the parameter name.
 #'
-#' @return a \link{data.frame} containing the extracted parameter information
+#' @return A \code{data.frame} containing the extracted parameter information.
+#'
+#' @noRd
 extractParams2 <- function(object,
                            startStr,
                            endStr) {
