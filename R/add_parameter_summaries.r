@@ -9,12 +9,12 @@ add_parameter_summaries <- function(result) {
 
     agtbl <- result$data %>% select(ag, agId) %>% distinct()
     
-    result$mu0 <- extractParams(result, "mu0") %>%
+    result$mu0 <- extract_params(result, "mu0") %>%
         mutate(tp = as.numeric(str_sub(var, 5, -2))) %>%
         rename(mu0 = mean) %>%
         select(tp, mu0, sd, q025, q975, n_eff, Rhat)
 
-    result$mu_ag <- extractParams(result, "mu_ag") %>%
+    result$mu_ag <- extract_params(result, "mu_ag") %>%
         mutate(indices = str_sub(var, 7, -2)) %>%
         separate(indices, c("agId", "tp"), ",") %>%
         mutate(agId = as.numeric(agId), tp = as.numeric(tp)) %>%
@@ -22,12 +22,12 @@ add_parameter_summaries <- function(result) {
         rename(mu_ag = mean) %>%
         select(ag, agId, tp, mu_ag, sd, q025, q975, n_eff, Rhat)
 
-    result$omega_t <- extractParams(result, "omega_t") %>%
+    result$omega_t <- extract_params(result, "omega_t") %>%
         mutate(tp = as.numeric(str_sub(var, 9, -2))) %>%
         rename(omega_t = mean) %>%
         select(tp, omega_t, sd, q025, q975, n_eff, Rhat)
 
-    result$omega_ag <- extractParams(result, "omega_ag") %>%
+    result$omega_ag <- extract_params(result, "omega_ag") %>%
         mutate(agId = as.numeric(str_sub(var, 10, -2))) %>%
         rename(omega_ag = mean) %>%
         left_join(agtbl, by = "agId") %>%
@@ -46,7 +46,7 @@ add_parameter_summaries <- function(result) {
         retbl <- result$data %>% select(re, reId) %>% distinct()
         grptbl <- result$data %>% select(group, groupId) %>% distinct()
         
-        result$mu_re <- extractParams(result, "mu_re") %>%
+        result$mu_re <- extract_params(result, "mu_re") %>%
             mutate(indices = str_sub(var, 7, -2)) %>%
             separate(indices, c("reId", "tp"), ",") %>%
             mutate(reId = as.numeric(reId), tp = as.numeric(tp)) %>%
@@ -54,7 +54,7 @@ add_parameter_summaries <- function(result) {
             rename(mu_re = mean) %>%
             select(re, reId, tp, mu_re, sd, q025, q975, n_eff, Rhat)
 
-        result$mu_ar <- extractParams(result, "mu_ar") %>%
+        result$mu_ar <- extract_params(result, "mu_ar") %>%
             mutate(indices = str_sub(var, 7, -2)) %>%
             separate(indices, c("tp", "agId", "reId"), ",") %>%
             mutate(agId = as.numeric(agId),
@@ -66,13 +66,13 @@ add_parameter_summaries <- function(result) {
             select(ag, agId, re, reId, tp,
                    mu_ar, sd, q025, q975, n_eff, Rhat)
 
-        result$omega_re <- extractParams(result, "omega_re") %>%
+        result$omega_re <- extract_params(result, "omega_re") %>%
             mutate(reId = as.numeric(str_sub(var, 10, -2))) %>%
             rename(omega_re = mean) %>%
             left_join(retbl, by = "reId") %>%
             select(re, reId, omega_re, sd, q025, q975, n_eff, Rhat)
 
-        result$omega_grp <- extractParams(result, "omega_grp") %>%
+        result$omega_grp <- extract_params(result, "omega_grp") %>%
             mutate(groupId = as.numeric(str_sub(var, 11, -2))) %>%
             rename(omega_grp = mean) %>%
             left_join(grptbl, by = "groupId") %>%

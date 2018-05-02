@@ -11,7 +11,7 @@
 #'
 #' @export
 responses <- function(result) {
-    respProbs <- result %>% extractParams2("z[", ",2]") %>%
+    respProbs <- result %>% extract_params2("z[", ",2]") %>%
         rename(responseProb = mean) %>%
         mutate(isResp = responseProb > 0.5) %>%
         select(isResp, responseProb, sd, q025, q975, n_eff, Rhat)

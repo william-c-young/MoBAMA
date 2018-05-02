@@ -26,7 +26,7 @@ Collate:
     'data_maps.r'
     'date_filename.r'
     'efdr.r'
-    'extractParams.r'
+    'extract_params.r'
     'fdr_cutoff.r'
     'utils.r'
     'prepare_data.r'

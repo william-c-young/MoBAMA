@@ -12,7 +12,7 @@
 #' @return A \code{data.frame} containing the extracted parameter information.
 #'
 #' @noRd
-extractParams <- function(object,
+extract_params <- function(object,
                           varStr,
                           fullname = FALSE) {
               if (fullname) {
@@ -37,7 +37,7 @@ extractParams <- function(object,
 #' @return A \code{data.frame} containing the extracted parameter information.
 #'
 #' @noRd
-extractParams2 <- function(object,
+extract_params2 <- function(object,
                            startStr,
                            endStr) {
     object$parameters %>%
