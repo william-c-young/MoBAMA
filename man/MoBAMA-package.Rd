@@ -3,7 +3,6 @@
 \docType{package}
 \name{MoBAMA-package}
 \alias{MoBAMA-package}
-\alias{MoBAMA}
 \title{MoBAMA (Modeling of Binding Antibody Multiplex Assays)}
 \description{
 This package fits a Bayesian grouped mixture model for BAMA and

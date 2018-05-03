@@ -55,6 +55,7 @@
 #'   the samples of the model hyperparameters.}
 #'
 #' @export
+#' @example examples/MoBAMA_fit.r
 MoBAMA <- function(data,
                    dataType = "fc",
                    nChains = 1,

@@ -5,13 +5,16 @@
 \title{Gets fab and FcR breadth scores per subject from
 a MoBAMAResult object}
 \usage{
-breadth_scores(result, agClasses = NULL)
+breadth_scores(result, agClasses = NULL, reClasses = NULL)
 }
 \arguments{
 \item{result}{The MoBAMAResult object.}
 
 \item{agClasses}{A named list of antigen classes, each item being
 a vector of antigen names used in the data to filter by before computing scores.}
+
+\item{reClasses}{A named list of Fc variable classes, each item being
+a vector of Fc variable names used in the data to filter by before computing scores.}
 }
 \value{
 A \code{data.frame} containing breadth scores for each subject,

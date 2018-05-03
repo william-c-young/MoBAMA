@@ -6,7 +6,7 @@
 #'
 #' @docType package
 #' @name MoBAMA-package
-#' @aliases MoBAMA
+#' @aliases MoBAMA-package
 #' @useDynLib MoBAMA, .registration = TRUE
 #'
 #' @import methods
