@@ -19,8 +19,12 @@
 #' @param result The MoBAMAResult object.
 #' @param agClasses A named list of antigen classes, each item being
 #' a vector of antigen names used in the data to filter by before computing scores.
+#' Defaults to \code{NULL}, indicating no filtering.
 #' @param reClasses A named list of Fc variable classes, each item being
 #' a vector of Fc variable names used in the data to filter by before computing scores.
+#' Defaults to \code{NULL}, indicating no filtering.
+#' @param includeMagBreadth A boolean indicating whether to include
+#' magnitude-weighted breadth scores. Defaults to \code{FALSE}.
 #'
 #' @return A \code{data.frame} containing breadth scores for each subject,
 #' for all antigens as well as for each antigen class included in agClasses.
@@ -29,33 +33,13 @@
 breadth_scores <- function(result,
                            agClasses = NULL,
                            reClasses = NULL) {
-    resp <- responses(result)
-    scores <- .breadth_scores(resp) %>%
-        mutate(agClass = "--All--", reClass = "--All--")
-    for (r in names(reClasses)) {
-        rScores <- .breadth_scores(
-            resp %>% dplyr::filter(re %in% reClasses[[r]])
-        ) %>% mutate(agClass = "--All--", reClass = r)
-        scores <- scores %>%
-            bind_rows(rScores)
-    }
-    for (c in names(agClasses)) {
-        cScores <- .breadth_scores(
-            resp %>% dplyr::filter(ag %in% agClasses[[c]])
-        ) %>% mutate(agClass = c, reClass = "--All--")
-        scores <- scores %>%
-            bind_rows(cScores)
-        for (r in names(reClasses)) {
-            rScores <- .breadth_scores(
-                resp %>% dplyr::filter(ag %in% agClasses[[c]],
-                                       re %in% reClasses[[r]])
-            ) %>% mutate(agClass = c, reClass = r)
-            scores <- scores %>%
-                bind_rows(rScores)
-        }
-    }
+    scores <- .collect_scores(result,
+                              agClasses,
+                              reClasses,
+                              .breadth_scores)
     if (result$dataType == "bama") {
         scores %>% select(-reClass, -fcRBreadth)
     }
     else { scores }
 }
+

@@ -28,6 +28,7 @@ Collate:
     'efdr.r'
     'extract_params.r'
     'fdr_cutoff.r'
+    'magnitude_breadth_scores.r'
     'utils.r'
     'prepare_data.r'
     'reagent_barplot.r'
