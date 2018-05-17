@@ -22,6 +22,7 @@ Collate:
     'build_MoBAMA_summary.r'
     'build_model_data.r'
     'build_parameter_initialization.r'
+    'collect_scores.r'
     'confusion_matrices.r'
     'data_maps.r'
     'date_filename.r'

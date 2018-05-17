@@ -2,10 +2,11 @@
 % Please edit documentation in R/magnitude_breadth_scores.r
 \name{magnitude_breadth_scores}
 \alias{magnitude_breadth_scores}
-\title{Gets fab and FcR breadth scores per subject from
+\title{Gets fab and FcR magnitude-weighted breadth scores per subject from
 a MoBAMAResult object}
 \usage{
-magnitude_breadth_scores(result, agClasses = NULL, reClasses = NULL)
+magnitude_breadth_scores(result, tps = unique(result$data$tp),
+  agClasses = NULL, reClasses = NULL)
 }
 \arguments{
 \item{result}{The MoBAMAResult object.}
@@ -26,6 +27,6 @@ A \code{data.frame} containing breadth scores for each subject,
 for all antigens as well as for each antigen class included in agClasses.
 }
 \description{
-Gets fab and FcR breadth scores per subject from
+Gets fab and FcR magnitude-weighted breadth scores per subject from
 a MoBAMAResult object
 }

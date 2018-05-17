@@ -31,9 +31,11 @@
 #'
 #' @export
 breadth_scores <- function(result,
+                           tps = unique(result$data$tp),
                            agClasses = NULL,
                            reClasses = NULL) {
     scores <- .collect_scores(result,
+                              tps,
                               agClasses,
                               reClasses,
                               .breadth_scores)

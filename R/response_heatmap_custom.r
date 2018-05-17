@@ -33,9 +33,17 @@ response_heatmap_custom <- function(result,
                              xlines = "white",
                              ytext = "SubjectId",
                              ylines = NULL) {
-    resp <- responses(result) %>%
-        dplyr::filter(paste(ag, re, tp) %in% paste(xorderTable$ag, xorderTable$re, xorderTable$tp),
-               subjectId %in% yorderTable$subjectId)
+
+    resp <- responses(result)
+    if (!"re" %in% names(resp)) {
+        resp$re <- "noFc"
+        xorderTable$re <- "noFc"
+    }
+
+    resp <- resp %>%
+        dplyr::filter(paste(ag, re, tp) %in%
+                      paste(xorderTable$ag, xorderTable$re, xorderTable$tp),
+                      subjectId %in% yorderTable$subjectId)
     hmData <- resp %>%
         left_join(xorderTable %>%
                   rename(xorder = order,
@@ -74,9 +82,8 @@ response_heatmap_custom <- function(result,
     if (is.null(responseThreshold)) {
         hmPlot <- ggplot(hmData) +
             geom_tile(aes(xorder, yorder, fill=responseProb))
-    }
-    else {
-        ggplot(hmData) +
+    } else {
+        hmPlot <- ggplot(hmData) +
             geom_tile(aes(xorder, yorder,
                           fill=responseProb > responseThreshold)) +
             scale_fill_manual(values = c("darkred", "darkgreen"))

@@ -5,7 +5,8 @@
 \title{Gets fab and FcR breadth scores per subject from
 a MoBAMAResult object}
 \usage{
-breadth_scores(result, agClasses = NULL, reClasses = NULL)
+breadth_scores(result, tps = unique(result$data$tp), agClasses = NULL,
+  reClasses = NULL)
 }
 \arguments{
 \item{result}{The MoBAMAResult object.}

@@ -1,33 +1,39 @@
 .magnitude_breadth_scores <- function(resp, mu_ag, mu_re) {
     agNorm = sum(mu_ag %>%
+                 dplyr::filter(ag %in% unique(resp$ag),
+                               tp %in% unique(resp$tp)) %>%
                  group_by(ag) %>%
                  summarize(maxmu = max(mu_ag)) %>%
                  select(maxmu))
     fab <- resp %>%
-        left_join(mu_ag %>% select(ag, mu_ag),
-                  by = "ag") %>%
-        group_by(group, subjectId, ag, mu_ag) %>%
-        summarize(magProb = max(mu_ag) * max(responseProb)) %>%
+        left_join(mu_ag %>% select(ag, tp, mu_ag),
+                  by = c("ag", "tp")) %>%
+        group_by(group, subjectId, ag) %>%
+        summarize(magProb = max(mu_ag[responseProb == max(responseProb)]) *
+                      max(responseProb)) %>%
         group_by(group, subjectId) %>%
         summarize(fabMagBreadth = sum(magProb) / agNorm)
     if (is.null(mu_re)) return(fab)
  
     reNorm = sum(mu_re %>%
+                 dplyr::filter(re %in% unique(resp$re),
+                               tp %in% unique(reps$tp)) %>%
                  group_by(re) %>%
                  summarize(maxmu = max(mu_re)) %>%
                  select(maxmu))
     fcr <- resp %>%
-        left_join(mu_re %>% select(re, mu_re),
-                  by = "re") %>%
-        group_by(group, subjectId, re, mu_re) %>%
-        summarize(magProb = max(mu_re) * max(responseProb)) %>%
+        left_join(mu_re %>% select(re, tp, mu_re),
+                  by = c("re", "tp")) %>%
+        group_by(group, subjectId, re) %>%
+        summarize(magProb = max(mu_re[responseProb == max(responseProb)]) *
+                      max(responseProb)) %>%
         group_by(group, subjectId) %>%
         summarize(fcRMagBreadth = sum(magProb) / reNorm)
     fab %>%
         left_join(fcr, by = c("group", "subjectId"))
 }
 
-#' Gets fab and FcR breadth scores per subject from
+#' Gets fab and FcR magnitude-weighted breadth scores per subject from
 #' a MoBAMAResult object
 #'
 #' @param result The MoBAMAResult object.
@@ -45,9 +51,11 @@
 #'
 #' @export
 magnitude_breadth_scores <- function(result,
+                                     tps = unique(result$data$tp),
                                      agClasses = NULL,
                                      reClasses = NULL) {
     scores <- .collect_scores(result,
+                              tps,
                               agClasses,
                               reClasses,
                               .magnitude_breadth_scores,
