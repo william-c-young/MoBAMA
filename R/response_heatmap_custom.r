@@ -57,6 +57,8 @@ response_heatmap_custom <- function(result,
                          ygroup = group,
                          ycolor = color),
                   by = "subjectId") %>%
+        mutate(xorder = dense_rank(xorder),
+               yorder = dense_rank(yorder)) %>%
         arrange(xorder, yorder)
 
     xax <- hmData %>%
