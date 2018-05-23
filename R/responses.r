@@ -15,5 +15,9 @@ responses <- function(result) {
         rename(responseProb = mean) %>%
         mutate(isResp = responseProb > 0.5) %>%
         select(isResp, responseProb, sd, q025, q975, n_eff, Rhat)
-    bind_cols(result$data, respProbs)
+    ## make sure to grab the correct columns
+    bind_cols(result$data, respProbs) %>%
+        select(subjectId, group, groupId, ag, agId,
+               re, reId, tp, val, isResp, responseProb,
+               sd, q025, q975, n_eff, Rhat)
 }
