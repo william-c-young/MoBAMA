@@ -18,6 +18,7 @@ Collate:
     'MoBAMAResult-methods.r'
     'add_parameter_summaries.r'
     'antigen_barplot.r'
+    'antigen_barplot_custom.r'
     'breadth_scores.r'
     'build_MoBAMA_summary.r'
     'build_model_data.r'

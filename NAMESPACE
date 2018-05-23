@@ -3,6 +3,7 @@
 S3method(print,MoBAMAResult)
 export(MoBAMA)
 export(antigen_barplot)
+export(antigen_barplot_custom)
 export(breadth_scores)
 export(efdr)
 export(fdr_cutoff)

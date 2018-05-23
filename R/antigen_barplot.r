@@ -18,23 +18,17 @@
 #' @export
 antigen_barplot <- function(result,
                             includeIntervals = F) {
-    barPlot <- NULL
-    if ( length(unique(result$mu_ag$tp)) > 1 ) {
-        barPlot <- ggplot(result$mu_ag, aes(paste(ag, tp), mu_ag, fill = factor(tp))) +
-            geom_bar(stat="identity", alpha = 0.9) +
-            labs(x = "Antigen", y = "Mean") +
-            coord_flip()
-    } else {
-        barPlot <- ggplot(result$mu_ag, aes(ag, mu_ag)) +
-            geom_bar(stat="identity", alpha = 0.9) +
-            labs(x = "Antigen", y = "Mean") +
-            coord_flip()
-    }
-    if (includeIntervals) {
-        barPlot <- barPlot +
-            geom_point(size = 3, color = "gray30") +
-            geom_errorbar(aes(ymin = q025, ymax = q975),
-                          size = 1.5, color = "gray30")
-    }
-    barPlot
+    agord <- fiFit$mu_ag %>%
+    select(ag, tp) %>%
+    arrange(ag, tp) %>% 
+    mutate(order = 1:n(),
+           label = ag,
+           group = ag,
+           color = "black",
+           barlabel = tp,
+           barcolor = rainbow(n=length(unique(tp)),
+                              s = 0.8)[tp])
+
+    antigen_barplot_custom(result, agord,
+                           incIntervals = includeIntervals)
 }
