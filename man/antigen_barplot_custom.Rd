@@ -4,17 +4,40 @@
 \alias{antigen_barplot_custom}
 \title{Plot the antigen means as a barplot}
 \usage{
-antigen_barplot_custom(result, agOrderTable, agTitle = "Antigen",
-  meanTitle = "Mean", colorTitle = "Timepoint", aglines = "white",
-  incIntervals = F, intervalSize = 3, intervalBarSize = 1.5,
+antigen_barplot_custom(result, agOrderTable, agText = "Antigen",
+  meanText = "Mean", colorText = "Timepoint", aglines = "white",
+  incIntervals = F, intervalPtSize = 3, intervalBarSize = 1.5,
   intervalColor = "gray30")
 }
 \arguments{
 \item{result}{The MoBAMAResult object.}
 
-\item{includeIntervals}{A boolean indicating whether to
-include sampling intervals for the antigen means.
-Defaults to \code{FALSE}.}
+\item{agOrderTable}{A \code{data.frame} with all ag/tp combinations
+to include as well as ordering labeling and color information.
+Should have the following columns:
+ag, tp, order, label, group, color, barlabel, barcolor}
+
+\item{agText}{The label for the antigen axis. Defaults to 'Antigen'.}
+
+\item{meanText}{The label for the antigen mean axis. Defaults to 'Mean'.}
+
+\item{colorText}{The label for the color legend. Defaults to 'Timepoint'.}
+
+\item{incIntervals}{A boolean indicating whether to include sampling
+intervals for the antigen means. Defaults to \code{FALSE}.}
+
+\item{intervalPtSize}{The size for the center point of the
+sampling interval. Defaults to 3.}
+
+\item{intervalBarSize}{The size for the sampling interval bars.
+Defaults to 1.5}
+
+\item{intervalColor}{A string defining the color for the sampling interval
+error bars. Defaults to 'gray30'.}
+
+\item{agLines}{A string defining the color for lines separating groups
+(by label) on the antigen axis or \code{NULL} for no lines.
+Defaults to 'white'.}
 }
 \value{
 A ggplot barplot object.

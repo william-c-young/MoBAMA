@@ -2,11 +2,6 @@
 #'
 #' This function plots the reagent means from a model fit as a
 #'   barplot.
-#' TODO: add more options
-#'       tp filtering
-#'       colors (by Fc group, user-specified)
-#'       make the plot cleaner/nicer
-#'       not hard code axis labels?
 #'
 #' @param result The MoBAMAResult object.
 #' @param includeIntervals A boolean indicating whether to
@@ -18,15 +13,29 @@
 #' @export
 reagent_barplot <- function(result,
                             includeIntervals = F) {
-    barPlot <- ggplot(result$mu_re, aes(re, mu_re)) +
-        geom_bar(stat="identity", alpha = 0.7) +
-        labs(x = "Antigen", y = "Mean") +
-        coord_flip()
-    if (includeIntervals) {
-        barPlot <- barPlot +
-            geom_point(size = 3, color = "gray30") +
-            geom_errorbar(aes(ymin = q025, ymax = q975),
-                          size = 1.5, color = "gray30")
-    }
-    barPlot
+    reord <- result$mu_re %>%
+        select(re, tp) %>%
+        arrange(re, tp) %>% 
+        mutate(order = 1:n(),
+               label = re,
+               group = re,
+               color = "black",
+               barlabel = tp,
+               barcolor = rainbow(n=length(unique(tp)),
+                                  s = 0.8)[tp])
+
+    reagent_barplot_custom(result, reord,
+                           incIntervals = includeIntervals)
+
+    ## barPlot <- ggplot(result$mu_re, aes(re, mu_re)) +
+    ##     geom_bar(stat="identity", alpha = 0.7) +
+    ##     labs(x = "Antigen", y = "Mean") +
+    ##     coord_flip()
+    ## if (includeIntervals) {
+    ##     barPlot <- barPlot +
+    ##         geom_point(size = 3, color = "gray30") +
+    ##         geom_errorbar(aes(ymin = q025, ymax = q975),
+    ##                       size = 1.5, color = "gray30")
+    ## }
+    ## barPlot
 }

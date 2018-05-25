@@ -19,9 +19,4 @@ A ggplot barplot object.
 \description{
 This function plots the antigen means from a model fit as a
   barplot.
-TODO: add more options
-      tp filtering
-      colors (by antigen group, user-specified)
-      make the plot cleaner/nicer
-      not hard code axis labels?
 }

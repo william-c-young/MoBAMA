@@ -19,9 +19,4 @@ A ggplot barplot object.
 \description{
 This function plots the reagent means from a model fit as a
   barplot.
-TODO: add more options
-      tp filtering
-      colors (by Fc group, user-specified)
-      make the plot cleaner/nicer
-      not hard code axis labels?
 }

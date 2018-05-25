@@ -1,26 +1,21 @@
-#' Plot the antigen means as a barplot
+#' Plot the reagent means as a barplot
 #'
-#' This function plots the antigen means from a model fit as a
-#'   barplot.
-#' TODO: add more options
-#'       tp filtering
-#'       colors (by antigen group, user-specified)
-#'       make the plot cleaner/nicer
-#'       not hard code axis labels?
+#' This function plots the reagent means from a model fit as a
+#' barplot.
 #'
 #' @param result The MoBAMAResult object.
-#' @param agOrderTable A \code{data.frame} with all ag/tp combinations
+#' @param reOrderTable A \code{data.frame} with all re/tp combinations
 #' to include as well as ordering labeling and color information.
 #' Should have the following columns:
-#' ag, tp, order, label, group, color, barlabel, barcolor
-#' @param agText The label for the antigen axis. Defaults to 'Antigen'.
-#' @param meanText The label for the antigen mean axis. Defaults to 'Mean'.
+#' re, tp, order, label, group, color, barlabel, barcolor
+#' @param reText The label for the Fc axis. Defaults to 'Fc Variable'.
+#' @param meanText The label for the Fc mean axis. Defaults to 'Mean'.
 #' @param colorText The label for the color legend. Defaults to 'Timepoint'.
-#' @param agLines A string defining the color for lines separating groups
-#' (by label) on the antigen axis or \code{NULL} for no lines.
+#' @param reLines A string defining the color for lines separating groups
+#' (by label) on the Fc axis or \code{NULL} for no lines.
 #' Defaults to 'white'.
 #' @param incIntervals A boolean indicating whether to include sampling
-#' intervals for the antigen means. Defaults to \code{FALSE}.
+#' intervals for the Fc variable means. Defaults to \code{FALSE}.
 #' @param intervalPtSize The size for the center point of the
 #' sampling interval. Defaults to 3.
 #' @param intervalBarSize The size for the sampling interval bars.
@@ -31,54 +26,54 @@
 #' @return A ggplot barplot object.
 #'
 #' @export
-antigen_barplot_custom <- function(result,
-                                   agOrderTable,
-                                   agText = "Antigen",
+reagent_barplot_custom <- function(result,
+                                   reOrderTable,
+                                   reText = "Fc Variable",
                                    meanText = "Mean",
                                    colorText = "Timepoint",
-                                   aglines = "white",
+                                   relines = "white",
                                    incIntervals = F,
                                    intervalPtSize = 3,
                                    intervalBarSize = 1.5,
                                    intervalColor = "gray30") {
-    agOrderTable <- agOrderTable %>%
+    reOrderTable <- reOrderTable %>%
         mutate(barlabel = as.character(barlabel))
-    barColors = agOrderTable %>%
+    barColors = reOrderTable %>%
         arrange(order) %>%
         select(barlabel, barcolor) %>%
         distinct()
-    plotData <- result$mu_ag %>%
-        inner_join(agOrderTable, by = c("ag", "tp"))
-    agax <- plotData %>%
+    plotData <- result$mu_re %>%
+        inner_join(reOrderTable, by = c("re", "tp"))
+    reax <- plotData %>%
         select(order, label, group, color) %>%
         distinct() %>%
         arrange(order)
-    agsep <- cumsum(table(agax$label))
-    agsep2 <- ceiling((agsep + c(0, agsep[1:(length(agsep)-1)])) / 2)
-    aggrpsep <- cumsum(table(agax$group))
+    resep <- cumsum(table(reax$label))
+    resep2 <- ceiling((resep + c(0, resep[1:(length(resep)-1)])) / 2)
+    regrpsep <- cumsum(table(reax$group))
         
     barPlot <- ggplot(plotData) +
         labs(y = meanText) +
         coord_flip()
     if (nrow(barColors) > 1) {
         barPlot <- barPlot +
-            geom_bar(aes(order, mu_ag, fill = barlabel),
+            geom_bar(aes(order, mu_re, fill = barlabel),
                      stat="identity", alpha = 0.9) +
         scale_fill_manual(limits = barColors$barlabel,
                           values = barColors$barcolor) +
             labs(fill = colorText)
     } else {
         barPlot <- barPlot +
-            geom_bar(aes(order, mu_ag),
+            geom_bar(aes(order, mu_re),
                      stat="identity", alpha = 0.9)
     }
-    if (!is.null(aglines)) {
+    if (!is.null(relines)) {
         barPlot <- barPlot +
-            geom_vline(xintercept = aggrpsep+0.5, color=aglines)
+            geom_vline(xintercept = regrpsep+0.5, color=relines)
     }
     if (incIntervals) {
         barPlot <- barPlot +
-            geom_point(aes(order, mu_ag),
+            geom_point(aes(order, mu_re),
                        size = intervalPtSize,
                        color = intervalColor) +
             geom_errorbar(aes(order,
@@ -88,8 +83,8 @@ antigen_barplot_custom <- function(result,
                           color = intervalColor)
     }
     barPlot +
-        scale_x_discrete(agText, limits = agax$order,
-                         breaks = agax$order[agsep2],
-                         labels = agax$label[agsep2]) +
-        theme(axis.text.x = element_text(color = agax$color[agsep2]))
+        scale_x_discrete(reText, limits = reax$order,
+                         breaks = reax$order[resep2],
+                         labels = reax$label[resep2]) +
+        theme(axis.text.x = element_text(color = reax$color[resep2]))
 }

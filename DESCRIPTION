@@ -34,6 +34,7 @@ Collate:
     'utils.r'
     'prepare_data.r'
     'reagent_barplot.r'
+    'reagent_barplot_custom.r'
     'response_call_evaluation.r'
     'response_heatmap.r'
     'response_heatmap_custom.r'
