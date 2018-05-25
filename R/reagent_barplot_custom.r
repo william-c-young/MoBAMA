@@ -1,7 +1,8 @@
 #' Plot the reagent means as a barplot
 #'
 #' This function plots the reagent means from a model fit as a
-#' barplot.
+#' barplot with additional options for sorting and filtering the
+#' data displayed.
 #'
 #' @param result The MoBAMAResult object.
 #' @param reOrderTable A \code{data.frame} with all re/tp combinations

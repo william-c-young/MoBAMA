@@ -31,6 +31,7 @@ Collate:
     'extract_params.r'
     'fdr_cutoff.r'
     'magnitude_breadth_scores.r'
+    'parameter_barplot_custom.r'
     'utils.r'
     'prepare_data.r'
     'reagent_barplot.r'

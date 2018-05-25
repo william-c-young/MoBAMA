@@ -13,17 +13,23 @@
 #' @export
 antigen_barplot <- function(result,
                             includeIntervals = F) {
-    agord <- result$mu_ag %>%
-        select(ag, tp) %>%
-        arrange(ag, tp) %>% 
+    agData <- result$mu_ag %>%
+        select(ag, tp, mu_ag, q025, q975) %>%
+        arrange(ag, tp) %>%
+        rename(paramValue = mu_ag,
+               qlower = q025,
+               qupper = q975) %>%
         mutate(order = 1:n(),
                label = ag,
                group = ag,
-               color = "black",
-               barlabel = tp,
-               barcolor = rainbow(n=length(unique(tp)),
-                                  s = 0.8)[tp])
+               labelColor = "black",
+               fillGroup = tp,
+               fillColor = rainbow(n=length(unique(tp)),
+                                   s = 0.8)[tp])
 
-    antigen_barplot_custom(result, agord,
-                           incIntervals = includeIntervals)
+    parameter_barplot_custom(agData,
+                             paramLabel   = "Antigen",
+                             valueLabel   = "Mean Offset",
+                             fillLabel    = "Timepoint",
+                             incIntervals = includeIntervals)
 }

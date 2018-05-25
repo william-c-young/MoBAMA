@@ -13,29 +13,23 @@
 #' @export
 reagent_barplot <- function(result,
                             includeIntervals = F) {
-    reord <- result$mu_re %>%
-        select(re, tp) %>%
-        arrange(re, tp) %>% 
+    reData <- result$mu_re %>%
+        select(re, tp, mu_re, q025, q975) %>%
+        arrange(re, tp) %>%
+        rename(paramValue = mu_re,
+               qlower = q025,
+               qupper = q975) %>%
         mutate(order = 1:n(),
                label = re,
                group = re,
-               color = "black",
-               barlabel = tp,
-               barcolor = rainbow(n=length(unique(tp)),
-                                  s = 0.8)[tp])
+               labelColor = "black",
+               fillGroup = tp,
+               fillColor = rainbow(n=length(unique(tp)),
+                                   s = 0.8)[tp])
 
-    reagent_barplot_custom(result, reord,
-                           incIntervals = includeIntervals)
-
-    ## barPlot <- ggplot(result$mu_re, aes(re, mu_re)) +
-    ##     geom_bar(stat="identity", alpha = 0.7) +
-    ##     labs(x = "Antigen", y = "Mean") +
-    ##     coord_flip()
-    ## if (includeIntervals) {
-    ##     barPlot <- barPlot +
-    ##         geom_point(size = 3, color = "gray30") +
-    ##         geom_errorbar(aes(ymin = q025, ymax = q975),
-    ##                       size = 1.5, color = "gray30")
-    ## }
-    ## barPlot
+    parameter_barplot_custom(reData,
+                             paramLabel   = "Fc Variable",
+                             valueLabel   = "Mean Offset",
+                             fillLabel    = "Timepoint",
+                             incIntervals = includeIntervals)
 }

@@ -1,12 +1,8 @@
 #' Plot the antigen means as a barplot
 #'
 #' This function plots the antigen means from a model fit as a
-#'   barplot.
-#' TODO: add more options
-#'       tp filtering
-#'       colors (by antigen group, user-specified)
-#'       make the plot cleaner/nicer
-#'       not hard code axis labels?
+#' barplot with additional options for sorting and filtering the
+#' data displayed.
 #'
 #' @param result The MoBAMAResult object.
 #' @param agOrderTable A \code{data.frame} with all ag/tp combinations

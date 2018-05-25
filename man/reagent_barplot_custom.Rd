@@ -44,5 +44,6 @@ A ggplot barplot object.
 }
 \description{
 This function plots the reagent means from a model fit as a
-barplot.
+barplot with additional options for sorting and filtering the
+data displayed.
 }
